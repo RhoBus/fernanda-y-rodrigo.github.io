@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maria Fernanda & Rodrigo</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Cookie (for names) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        /* Custom Tailwind configuration */
+        :root {
+            --primary-blue: #3b8cbb; /* Your preferred blue color */
+            --secondary-white: #f8f9fa; /* Soft off-white */
+            --text-color-dark: #333333;
+            --wave-color: #f8f9fa; /* Color of the wave to match the body background */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color-dark);
+            background-color: var(--secondary-white);
+        }
+
+        .primary-bg {
+            background-color: var(--primary-blue);
+        }
+
+        .primary-text {
+            color: var(--primary-blue);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-blue);
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hero section specific styling */
+        .hero-bg {
+            background-image: url('https://picsum.photos/1920/1080?random=1');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Timeline specific styling */
+        .timeline-container {
+            position: relative;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: white;
+            transform: translateX(-50%);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1rem;
+            height: 1rem;
+            background-color: white;
+            border-radius: 9999px;
+        }
+
+        /* Mobile timeline alignment */
+        @media (max-width: 767px) {
+            .timeline-line {
+                left: 20px;
+            }
+            .timeline-dot {
+                left: 20px;
+                transform: translateX(-50%);
+            }
+        }
+
+        /* New CSS for the wave animation */
+        .wave-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            z-index: 20; /* Ensure it's above the hero content but below the nav */
+        }
+
+        .wave-svg {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+        }
+
+        .wave-path-1 {
+            /* The first wave is a subtle blue, matching the site's theme */
+            fill: rgba(248, 249, 250, 0.4);
+            animation: wave-animation-1 10s cubic-bezier(0.5, 0.5, 0.5, 0.5) infinite;
+        }
+
+        .wave-path-2 {
+            /* The second wave is now pure white and moves slower */
+            fill: rgba(250, 250, 250, 1.0);
+            animation: wave-animation-2 15s cubic-bezier(0.5, 0.5, 0.5, 0.5) infinite;
+        }
+
+        @keyframes wave-animation-1 {
+            0% {
+                d: path("M 0 50 Q 125 100 250 50 T 500 50 T 750 50 T 1000 50 V 100 H 0 Z");
+            }
+            50% {
+                d: path("M 0 50 Q 125 0 250 50 T 500 50 T 750 50 T 1000 50 V 100 H 0 Z");
+            }
+            100% {
+                d: path("M 0 50 Q 125 100 250 50 T 500 50 T 750 50 T 1000 50 V 100 H 0 Z");
+            }
+        }
+
+        @keyframes wave-animation-2 {
+            0% {
+                d: path("M 0 50 Q 150 100 300 50 T 600 50 T 900 50 T 1000 50 V 100 H 0 Z");
+            }
+            50% {
+                d: path("M 0 50 Q 150 0 300 50 T 600 50 T 900 50 T 1000 50 V 100 H 0 Z");
+            }
+            100% {
+                d: path("M 0 50 Q 150 100 300 50 T 600 50 T 900 50 T 1000 50 V 100 H 0 Z");
+            }
+        }
+
+        /* Adjust the hero section padding to account for the wave */
+        #home {
+            padding-bottom: 100px; /* Adjust padding to make space for the wave */
+        }
+
+        /* New Countdown Timer Styles */
+        .timer-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timer-pods-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            width: 100%;
+            padding: 2rem 0;
+        }
+
+        .timer-pod {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa; /* Pod background color */
+            padding: 1rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .timer-pod:hover {
+            transform: translateY(-5px);
+        }
+
+        .timer-pod-number {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            line-height: 1;
+        }
+
+        .timer-label {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #777;
+        }
+
+        /* SVG styles for the new flower pattern */
+        .flower-pattern-svg {
+            width: 100%;
+            height: auto;
+            fill: #3b8cbb; /* Use the main primary color */
+            opacity: 0.8;
+            margin: 1rem 0;
+        }
+
+        .flower-pattern-svg-flipped {
+            transform: scaleY(-1);
+        }
+
+        /* Custom font for names */
+        .font-cookie {
+            font-family: 'Cookie', cursive;
+        }
+
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white bg-opacity-90 shadow-lg p-4 transition-all duration-300">
+        <div class="container mx-auto flex items-center justify-between">
+            <a href="#" class="text-xl font-bold primary-text">M & R</a>
+            <div class="hidden md:flex space-x-6 text-gray-700 font-medium">
+                <a href="#home" class="hover:text-gray-900 transition-colors">Inicio</a>
+                <a href="#story" class="hover:text-gray-900 transition-colors">Bendición</a>
+                <a href="#details" class="hover:text-gray-900 transition-colors">Cronograma</a>
+                <a href="#location" class="hover:text-gray-900 transition-colors">Ubicación</a>
+                <a href="#gallery" class="hover:text-gray-900 transition-colors">Galería</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg relative text-white flex items-center justify-center min-h-screen pt-20 pb-40 text-center">
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+        <div class="relative z-10 p-6 md:p-12 bg-white bg-opacity-20 backdrop-filter backdrop-blur-sm rounded-3xl shadow-2xl hero-content">
+            <!-- New thin text -->
+            <h2 class="text-xl md:text-3xl font-light tracking-wide mb-4 animate-fade-in-up">Unidos por el amor, celebrando nuestra unión</h2>
+            <h1 class="text-4xl md:text-7xl tracking-tight mt-4 mb-4 md:mb-6 animate-fade-in-up animate-delay-200 font-cookie font-normal">Maria Fernanda y Rodrigo Sander</h1>
+            <h2 class="text-xl md:text-3xl font-medium tracking-wide animate-fade-in-up animate-delay-400">11 de octubre de 2025</h2>
+        </div>
+
+        <!-- Wave animation section -->
+        <div class="wave-container">
+            <svg class="wave-svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+                <path class="wave-path-1" d="M 0 50 Q 125 100 250 50 T 500 50 T 750 50 T 1000 50 V 100 H 0 Z"></path>
+                <path class="wave-path-2" d="M 0 50 Q 150 100 300 50 T 600 50 T 900 50 T 1000 50 V 100 H 0 Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- New Countdown Timer Section with Flower Pattern -->
+    <div class="flex items-center justify-center my-16 fade-in-element">
+        <div class="timer-container">
+            <!-- Top Flower Pattern -->
+            <svg class="flower-pattern-svg" viewBox="0 0 200 20" preserveAspectRatio="xMidYMid meet">
+              <path d="M10,10 C20,2 30,2 40,10 S60,18 70,10 S90,2 100,10 S120,18 130,10 S150,2 160,10 S180,18 190,10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="10" cy="10" r="3" />
+              <circle cx="40" cy="10" r="3" />
+              <circle cx="70" cy="10" r="3" />
+              <circle cx="100" cy="10" r="3" />
+              <circle cx="130" cy="10" r="3" />
+              <circle cx="160" cy="10" r="3" />
+              <circle cx="190" cy="10" r="3" />
+            </svg>
+
+            <h3 class="text-lg text-gray-500 font-light mb-4 text-center">Tiempo restante hasta nuestro gran día</h3>
+
+            <div class="timer-pods-grid">
+                <!-- Day pod -->
+                <div class="timer-pod">
+                    <span id="days" class="timer-pod-number">00</span>
+                    <span class="timer-label">Días</span>
+                </div>
+                <!-- Hour pod -->
+                <div class="timer-pod">
+                    <span id="hours" class="timer-pod-number">00</span>
+                    <span class="timer-label">Horas</span>
+                </div>
+                <!-- Minute pod -->
+                <div class="timer-pod">
+                    <span id="minutes" class="timer-pod-number">00</span>
+                    <span class="timer-label">Min</span>
+                </div>
+                <!-- Second pod -->
+                <div class="timer-pod">
+                    <span id="seconds" class="timer-pod-number">00</span>
+                    <span class="timer-label">Seg</span>
+                </div>
+            </div>
+
+            <!-- Bottom Flower Pattern (flipped) -->
+            <svg class="flower-pattern-svg flower-pattern-svg-flipped" viewBox="0 0 200 20" preserveAspectRatio="xMidYMid meet">
+              <path d="M10,10 C20,2 30,2 40,10 S60,18 70,10 S90,2 100,10 S120,18 130,10 S150,2 160,10 S180,18 190,10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="10" cy="10" r="3" />
+              <circle cx="40" cy="10" r="3" />
+              <circle cx="70" cy="10" r="3" />
+              <circle cx="100" cy="10" r="3" />
+              <circle cx="130" cy="10" r="3" />
+              <circle cx="160" cy="10" r="3" />
+              <circle cx="190" cy="10" r="3" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- Our Story Section -->
+    <section id="story" class="container mx-auto px-4 py-16 md:py-24 text-center">
+        <div class="max-w-3xl mx-auto mt-8 p-4 rounded-xl border border-gray-300 border-opacity-50">
+            <p class="text-base md:text-lg mb-4">EN UN MUNDO DE INFINITAS POSIBILIDADES Y MIL CAMINOS POR RECORRER, EL DESTINO NOS REÚNE HOY AQUÍ.</p>
+            <p class="text-base md:text-lg mb-2">BAJO EL VASTO CIELO QUE NOS PROTEGE, ELEGIMOS BRILLAR JUNTOS TODA LA VIDA.</p>
+            <p class="text-lg md:text-xl font-semibold primary-text">CON LA BENDICIÓN DE DIOS Y DE NUESTROS PADRES:</p>
+            <div class="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-8 mt-4 text-left md:text-center text-sm md:text-base">
+                <div class="flex-1">
+                    <p>RAFAEL PÉREZ RODRÍGUEZ (+)</p>
+                    <p>JUANA FERNÁNDEZ SEJAS</p>
+                </div>
+                <div class="flex-1">
+                    <p>IVÁN BUSTILLOS TORRES</p>
+                    <p>ESTHER VARGAS ARRAZOLA</p>
+                </div>
+            </div>
+            <p class="text-base md:text-lg mt-4 font-semibold primary-text">NOS ENCANTARÍA QUE NOS ACOMPAÑEN A CELEBRAR NUESTRA UNIÓN.</p>
+        </div>
+    </section>
+
+    <!-- Celebration Details Section (Vertical Timeline) -->
+    <section id="details" class="primary-bg text-white py-16 md:py-24 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4">Cronograma del Día</h2>
+        <p class="text-lg md:text-xl text-white max-w-3xl mx-auto mb-10">Aquí puedes ver los eventos de nuestra boda, que será un solo día de celebración.</p>
+
+        <div class="container mx-auto px-4">
+            <div class="timeline-container relative max-w-4xl mx-auto">
+                <!-- Vertical Line -->
+                <div class="timeline-line"></div>
+
+                <!-- Timeline Items -->
+
+                <!-- Item 1 -->
+                <div class="flex flex-col md:flex-row items-center my-8 relative">
+                    <div class="timeline-dot"></div>
+                    <div class="md:w-1/2 mb-4 md:mb-0 md:text-right md:pr-12">
+                        <img src="https://picsum.photos/600/400?random=8" alt="Church interior" class="rounded-2xl shadow-lg w-full h-auto">
+                    </div>
+                    <div class="md:w-1/2 md:pl-12 text-left">
+                        <h3 class="text-2xl font-bold">12:30 pm</h3>
+                        <p class="text-lg text-gray-200">Ceremonia religiosa</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="flex flex-col md:flex-row-reverse items-center my-8 relative">
+                    <div class="timeline-dot"></div>
+                    <div class="md:w-1/2 mb-4 md:mb-0 md:pl-12 md:text-left">
+                        <img src="https://picsum.photos/600/400?random=9" alt="Civil ceremony" class="rounded-2xl shadow-lg w-full h-auto">
+                    </div>
+                    <div class="md:w-1/2 md:pr-12 text-right">
+                        <h3 class="text-2xl font-bold">3:30 pm</h3>
+                        <p class="text-lg text-gray-200">Ceremonia civil</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="flex flex-col md:flex-row items-center my-8 relative">
+                    <div class="timeline-dot"></div>
+                    <div class="md:w-1/2 mb-4 md:mb-0 md:text-right md:pr-12">
+                        <img src="https://picsum.photos/600/400?random=10" alt="Reception" class="rounded-2xl shadow-lg w-full h-auto">
+                    </div>
+                    <div class="md:w-1/2 md:pl-12 text-left">
+                        <h3 class="text-2xl font-bold">5:00 pm</h3>
+                        <p class="text-lg text-gray-200">Recepción y brindis</p>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="flex flex-col md:flex-row-reverse items-center my-8 relative">
+                    <div class="timeline-dot"></div>
+                    <div class="md:w-1/2 mb-4 md:mb-0 md:pl-12 md:text-left">
+                        <img src="https://picsum.photos/600/400?random=11" alt="Dinner and banquet" class="rounded-2xl shadow-lg w-full h-auto">
+                    </div>
+                    <div class="md:w-1/2 md:pr-12 text-right">
+                        <h3 class="text-2xl font-bold">6:00 pm</h3>
+                        <p class="text-lg text-gray-200">Cena y banquete</p>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="flex flex-col md:flex-row items-center my-8 relative">
+                    <div class="timeline-dot"></div>
+                    <div class="md:w-1/2 mb-4 md:mb-0 md:text-right md:pr-12">
+                        <img src="https://picsum.photos/600/400?random=12" alt="Party" class="rounded-2xl shadow-lg w-full h-auto">
+                    </div>
+                    <div class="md:w-1/2 md:pl-12 text-left">
+                        <h3 class="text-2xl font-bold">7:00 pm</h3>
+                        <p class="text-lg text-gray-200">Inicia la fiesta</p>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="flex flex-col md:flex-row-reverse items-center my-8 relative">
+                    <div class="timeline-dot"></div>
+                    <div class="md:w-1/2 mb-4 md:mb-0 md:pl-12 md:text-left">
+                        <img src="https://picsum.photos/600/400?random=13" alt="Cake cutting" class="rounded-2xl shadow-lg w-full h-auto">
+                    </div>
+                    <div class="md:w-1/2 md:pr-12 text-right">
+                        <h3 class="text-2xl font-bold">10:00 pm</h3>
+                        <p class="text-lg text-gray-200">Corte del pastel</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Location Section (moved from RSVP) -->
+    <section id="location" class="bg-white py-16 md:py-24 text-center rsvp-section">
+        <h2 class="text-3xl md:text-5xl font-bold mb-4 primary-text fade-in-element">Ubicación y cómo llegar</h2>
+        <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-10 fade-in-element">LA CEREMONIA RELIGIOSA Y CIVIL SE REALIZARA EN EL SALÓN DE EVENTOS "RANCHO DE LAS GOLONDRINAS", UBICADO EN SACABA, 1 KM AL NORTE DEL PUENTE DE HUAYLLANI, UNA CUADRA ANTES DE LA CALLE SAN RAFAEL. TOMAR TRUFI 233 (HUAYLLANI) O MICRO 233 CHIMBOCO LA CELEBRACION SERA SOLO DE 1 DIA</p>
+        <div class="max-w-xl mx-auto p-8 bg-gray-100 rounded-3xl shadow-lg fade-in-element">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=RANCHO+LAS+GOLONDRINAS" target="_blank" class="inline-block px-8 py-3 primary-bg text-white rounded-full font-medium tracking-wide shadow-lg hover:bg-opacity-90 transition-colors fade-in-element">Abrir en Google Maps</a>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="primary-bg text-white py-16 md:py-24 gallery-section">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-10 fade-in-element">Nuestros Momentos Favoritos</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 fade-in-element">
+                <div class="relative group rounded-3xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://picsum.photos/600/400?random=3" alt="Couple laughing" class="w-full h-full object-cover">
+                </div>
+                <div class="relative group rounded-3xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://picsum.photos/600/400?random=4" alt="Couple on a bridge" class="w-full h-full object-cover">
+                </div>
+                <div class="relative group rounded-3xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://picsum.photos/600/400?random=5" alt="Couple by the lake" class="w-full h-full object-cover">
+                </div>
+                <div class="relative group rounded-3xl overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://picsum.photos/600/400?random=6" alt="Couple holding hands" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white text-center py-10 px-4">
+        <p class="text-gray-700">&copy; 2025 Maria Fernanda y Rodrigo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // --- Content Parallax Effects ---
+        // Subtle parallax for the hero section content
+        gsap.to('.hero-content', {
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                scrub: true
+            },
+            yPercent: -20, // Move the content up by 20% of its height
+            ease: 'none'
+        });
+
+        // Use a utility to select and animate multiple sections
+        const sections = ['#story', '#location', '#gallery'];
+
+        sections.forEach(section => {
+            gsap.fromTo(`${section} .fade-in-element`, {
+                y: 50,
+                opacity: 0
+            }, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top bottom-=100', // Start the animation when the top of the section enters the bottom of the viewport
+                    toggleActions: "play none none none" // Play the animation once
+                },
+                y: 0,
+                opacity: 1,
+                stagger: 0.2, // Stagger the animation for child elements
+                ease: 'power2.out'
+            });
+        });
+
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // --- Countdown Timer Logic ---
+        // Set the date we're counting down to
+        const countdownDate = new Date("October 11, 2025 12:30:00").getTime();
+
+        // Update the count down every 1 second
+        const x = setInterval(function() {
+
+            // Get today's date and time
+            const now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            const distance = countdownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Output the result in elements with the respective IDs
+            document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.querySelector('.timer-pods-grid').innerHTML = "<div class='col-span-4 text-center text-xl font-bold primary-text'>¡La celebración ha comenzado!</div>";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
