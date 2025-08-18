@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación de Boda</title>
+    <title>M & R</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for typography and icons -->
@@ -33,7 +33,6 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
         }
-
         /* Floral pattern as background with opacity - updated to .webp format */
         .floral-background {
             position: relative;
@@ -46,13 +45,13 @@
             left: 0;
             width: 100%;
             height: 100%;
+            /* Using a placeholder as the user provided a local file path */
             background-image: url("assets/pattern_flowers.webp");
             background-repeat: repeat;
             background-size: 900px; /* Adjust size to make the pattern visible */
             opacity: 0.1;
             z-index: -1; /* Place the background image behind the content */
         }
-
         /* Modal specific styles */
         .modal {
             display: none;
@@ -72,6 +71,18 @@
             border-radius: 1rem;
             text-align: center;
         }
+        /* Fade-in Animation Styles */
+        /* This class is applied to elements that should initially be hidden. */
+        .hidden-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 0.8s ease-out;
+        }
+        /* This class is added by JavaScript when the element is in view. */
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="antialiased text-gray-800">
@@ -80,27 +91,27 @@
     <div class="container mx-auto px-4 lg:w-[70%] max-w-5xl">
 
         <!-- Combined Header and Greeting Section -->
-        <header class="relative pt-12 pb-20 text-center text-sm sm:text-base md:text-lg floral-background">
+        <header class="relative pt-12 pb-20 text-center text-sm sm:text-base md:text-lg floral-background hidden-fade">
             <!-- Content from the original greeting section -->
-            <p class="font-light text-sm tracking-widest uppercase mb-4">CELEBRA CON NOSOTROS NUESTRA BODA</p>
-            <p class="font-script text-4xl sm:text-5xl md:text-6xl text-custom-blue mb-4">Maria Fernanda<br>&<br>Rodrigo Sander</p>
-            <div class="w-16 h-px bg-gray-400 mx-auto my-4"></div>
+            <p class="font-light text-sm tracking-widest uppercase mb-4">NUESTRA BODA</p>
+            <p class="font-script text-4xl sm:text-5xl md:text-6xl text-custom-blue my-8">Maria Fernanda<br>&<br>Rodrigo Sander</p>
+            <div class="w-16 h-px bg-gray-400 mx-auto my-8"></div>
             <p class="text-lg sm:text-xl md:text-2xl font-light">11 de octubre, 2025</p>
 
             <!-- Original header content -->
             <p class="font-light leading-relaxed max-w-md mx-auto">
                 EN UN MUNDO DE INFINITAS POSIBILIDADES Y MIL CAMINOS POR RECORRER, EL DESTINO NOS REÚNE HOY AQUÍ.
             </p>
-            <p class="mt-4 font-light leading-relaxed max-w-sm mx-auto">
+            <p class="mt-16 font-light leading-relaxed max-w-sm mx-auto">
                 BAJO EL VASTO CIELO QUE NOS PROTEGE, ELEGIMOS BRILLAR JUNTOS TODA LA VIDA.
             </p>
         </header>
 
         <!-- Invitation and Parents Section -->
-        <section class="bg-custom-blue text-white text-center py-20 px-4 floral-background border-4 border-white shadow-xl">
+        <section class="bg-custom-blue text-white text-center py-20 px-4 floral-background border-4 border-white shadow-xl hidden-fade">
             <div class="w-24 h-px bg-white mx-auto mb-4"></div>
             <p class="font-semibold leading-relaxed max-w-xs mx-auto text-sm sm:text-base md:text-lg">
-                CON LA BENDICIÓN DE DIOS Y DE NUESTROS PADRES:
+                CON LA BENDICIÓN DE DIOS, DE NUESTROS PADRES:
             </p>
             <!-- The Bride's parents -->
             <p class="font-script text-3xl tracking-wide mt-8">
@@ -113,14 +124,32 @@
                 Iván Bustillos Torres<br>
                 Esther Vargas Arrazola
             </p>
-            <p class="mt-8 font-light leading-relaxed max-w-sm mx-auto text-sm sm:text-base md:text-lg">
+            <!-- New section for the godparents with normal casing -->
+            <p class="mt-8 font-semibold leading-relaxed max-w-xs mx-auto text-sm sm:text-base md:text-lg">
+                Y EL APOYO DE NUESTROS PADRINOS:
+            </p>
+            <p class="font-script text-3xl tracking-wide mt-8">
+                Mario Daniel Herrera Romero<br>
+                Naffy Perez Rodriguez
+            </p>
+            <div class="w-12 h-px bg-white mx-auto my-6"></div>
+            <p class="font-script text-3xl tracking-wide my-4">
+                Roger Vasquez Perez<br>
+                Andrea Terrazas Rodriguez
+            </p>
+            <div class="w-12 h-px bg-white mx-auto my-6"></div>
+            <p class="font-script text-3xl tracking-wide mb-8">
+                Guery Saldaña<br>
+                Sara Carmen Vargas Arrazola
+            </p>
+            <p class="mt-16 font-light leading-relaxed max-w-sm mx-auto text-sm sm:text-base md:text-lg">
                 NOS ENCANTARÍA QUE NOS ACOMPAÑEN A CELEBRAR NUESTRA UNIÓN.
             </p>
         </section>
 
         <!-- Date and Countdown Section -->
-        <section class="text-center py-20 px-4 floral-background">
-            <p class="font-script text-3xl sm:text-4xl md:text-5xl mb-12">La Boda</p>
+        <section class="text-center py-20 px-4 floral-background hidden-fade">
+            <p class="font-script text-3xl sm:text-4xl md:text-5xl mb-12">La boda</p>
             <div class="flex items-center justify-center space-x-2 sm:space-x-4 mb-8">
                 <p class="text-xl sm:text-2xl md:text-3xl font-light tracking-wider">OCTUBRE</p>
                 <div class="flex-grow h-px bg-gray-400"></div>
@@ -129,7 +158,7 @@
                 <p class="text-xl sm:text-2xl md:text-3xl font-light tracking-wider">2025</p>
             </div>
 
-            <p class="font-script text-3xl sm:text-4xl md:text-5xl my-12">Prepárate</p>
+            <p class="font-script text-4xl sm:text-5xl md:text-6xl my-12">Prepárate</p>
 
             <!-- Countdown Timer -->
             <div id="countdown" class="flex justify-center text-4xl sm:text-5xl md:text-6xl font-light tracking-widest text-custom-blue space-x-2 sm:space-x-4">
@@ -156,7 +185,7 @@
         </section>
 
         <!-- Itinerary Section -->
-        <section class="text-center py-20 px-4 floral-background">
+        <section class="text-center py-20 px-4 floral-background hidden-fade">
             <p class="font-script text-3xl sm:text-4xl md:text-5xl mb-12">Cronograma</p>
             <div class="relative flex flex-col items-center">
                 <!-- Vertical timeline line -->
@@ -181,11 +210,13 @@
                         <p class="font-light text-sm">CEREMONIA CIVIL</p>
                     </div>
                     <div class="w-1/2 pr-4 md:pr-8 flex justify-start pl-4 md:pl-8">
-                        <!-- Icon from Google Fonts for a legal document/gavel -->
-                        <span class="material-symbols-outlined w-16 h-16 text-custom-blue text-4xl flex items-center justify-center">gavel</span>
+                        <!-- New SVG Icon for civil ceremony -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" class="text-custom-blue">
+                            <path fill="currentColor" d="M12 10L8 4.4L9.6 2h4.8L16 4.4zm3.5-3.2l-1.2 1.7c2.2.9 3.7 3 3.7 5.5a6 6 0 0 1-6 6a6 6 0 0 1-6-6c0-2.5 1.5-4.6 3.7-5.5L8.5 6.8C5.8 8.1 4 10.8 4 14a8 8 0 0 0 8 8a8 8 0 0 0 8-8c0-3.2-1.8-5.9-4.5-7.2"/>
+                        </svg>
                     </div>
                 </div>
-                 <!-- Timeline item: Recepción y brindis (right side of line) -->
+                    <!-- Timeline item: Recepción y brindis (right side of line) -->
                 <div class="flex flex-row-reverse w-full items-center mb-16 relative">
                     <div class="absolute w-2 h-2 rounded-full bg-gray-400 left-1/2 transform -translate-x-1/2 z-10"></div>
                     <div class="w-1/2 pl-4 md:pl-8 text-left pr-4 md:pr-8">
@@ -197,19 +228,19 @@
                         <span class="material-symbols-outlined w-16 h-16 text-custom-blue text-4xl flex items-center justify-center">wine_bar</span>
                     </div>
                 </div>
-                 <!-- Timeline item: Cena y banquete (left side of line) -->
-                 <div class="flex w-full items-center mb-16 relative">
-                    <div class="absolute w-2 h-2 rounded-full bg-gray-400 left-1/2 transform -translate-x-1/2 z-10"></div>
-                    <div class="w-1/2 pr-4 md:pr-8 text-right pl-4 md:pl-8">
-                        <p class="font-medium text-lg">6:00 pm</p>
-                        <p class="font-light text-sm">CENA Y BANQUETE</p>
+                    <!-- Timeline item: Cena y banquete (left side of line) -->
+                    <div class="flex w-full items-center mb-16 relative">
+                        <div class="absolute w-2 h-2 rounded-full bg-gray-400 left-1/2 transform -translate-x-1/2 z-10"></div>
+                        <div class="w-1/2 pr-4 md:pr-8 text-right pl-4 md:pl-8">
+                            <p class="font-medium text-lg">6:00 pm</p>
+                            <p class="font-light text-sm">CENA Y BANQUETE</p>
+                        </div>
+                        <div class="w-1/2 pr-4 md:pr-8 flex justify-start pl-4 md:pl-8">
+                            <!-- Icon from Google Fonts for food -->
+                            <span class="material-symbols-outlined w-16 h-16 text-custom-blue text-4xl flex items-center justify-center">restaurant</span>
+                        </div>
                     </div>
-                    <div class="w-1/2 pr-4 md:pr-8 flex justify-start pl-4 md:pl-8">
-                        <!-- Icon from Google Fonts for food -->
-                        <span class="material-symbols-outlined w-16 h-16 text-custom-blue text-4xl flex items-center justify-center">restaurant</span>
-                    </div>
-                </div>
-                <!-- Timeline item: Inicia la fiesta (right side of line) -->
+                    <!-- Timeline item: Inicia la fiesta (right side of line) -->
                 <div class="flex flex-row-reverse w-full items-center mb-16 relative">
                     <div class="absolute w-2 h-2 rounded-full bg-gray-400 left-1/2 transform -translate-x-1/2 z-10"></div>
                     <div class="w-1/2 pl-4 md:pl-8 text-left pr-4 md:pr-8">
@@ -221,29 +252,29 @@
                         <span class="material-symbols-outlined w-16 h-16 text-custom-blue text-4xl flex items-center justify-center">celebration</span>
                     </div>
                 </div>
-                <!-- Timeline item: Corte del pastel (left side of line) -->
-                <div class="flex w-full items-center mb-16 relative">
-                    <div class="absolute w-2 h-2 rounded-full bg-gray-400 left-1/2 transform -translate-x-1/2 z-10"></div>
-                    <div class="w-1/2 pr-4 md:pr-8 text-right pl-4 md:pl-8">
-                        <p class="font-medium text-lg">10:00 pm</p>
-                        <p class="font-light text-sm">CORTE DEL PASTEL</p>
-                    </div>
-                    <div class="w-1/2 pr-4 md:pr-8 flex justify-start pl-4 md:pl-8">
-                        <!-- Icon for a cake -->
-                        <span class="material-symbols-outlined w-16 h-16 text-custom-blue text-4xl flex items-center justify-center">cake</span>
+                    <!-- Timeline item: Corte del pastel (left side of line) -->
+                    <div class="flex w-full items-center mb-16 relative">
+                        <div class="absolute w-2 h-2 rounded-full bg-gray-400 left-1/2 transform -translate-x-1/2 z-10"></div>
+                        <div class="w-1/2 pr-4 md:pr-8 text-right pl-4 md:pl-8">
+                            <p class="font-medium text-lg">10:00 pm</p>
+                            <p class="font-light text-sm">CORTE DEL PASTEL</p>
+                        </div>
+                        <div class="w-1/2 pr-4 md:pr-8 flex justify-start pl-4 md:pl-8">
+                            <!-- Icon for a cake -->
+                            <span class="material-symbols-outlined w-16 h-16 text-custom-blue text-4xl flex items-center justify-center">cake</span>
+                        </div>
                     </div>
                 </div>
-            </div>
         </section>
 
         <!-- Location Section -->
-        <section class="bg-custom-blue text-white text-center py-20 px-4 floral-background border-4 border-white shadow-xl">
+        <section class="bg-custom-blue text-white text-center py-20 px-4 floral-background border-4 border-white shadow-xl mb-8 hidden-fade">
             <p class="font-script text-3xl sm:text-4xl md:text-5xl mb-12">Ubicación y cómo llegar</p>
             <p class="text-lg sm:text-xl md:text-2xl font-light mb-4">
-                LA CEREMONIA RELIGIOSA Y CIVIL SE REALIZARA EN EL SALÓN DE EVENTOS "RANCHO DE LAS GOLONDRINAS"
+                LA CEREMONIA RELIGIOSA Y CIVIL SE REALIZARA EN EL SALÓN DE EVENTOS<br><strong>"RANCHO DE LAS GOLONDRINAS"</strong>
             </p>
-            <p class="text-sm sm:text-base md:text-lg font-light leading-relaxed max-w-sm mx-auto mb-8">
-                UBICADO EN SACABA, 1 KM AL NORTE DEL PUENTE DE HUAYLLANI, UNA CUADRA ANTES DE LA CALLE SAN RAFAEL. TOMAR TRUFI 233 (HUAYLLANI) O MICRO 233 CHIMBOCO LA CELEBRACION SERA SOLO DE 1 DIA
+            <p class="text-sm sm:text-base md:text-lg font-light leading-relaxed max-w-sm mx-auto my-8">
+                UBICADO EN SACABA, 1 KM AL NORTE DEL PUENTE DE HUAYLLANI, UNA CUADRA ANTES DE LA CALLE SAN RAFAEL. TOMAR TRUFI 233 (HUAYLLANI) O MICRO 233 CHIMBOCO.<br> LA CELEBRACION SERA SOLO DE 1 DIA
             </p>
             <a href="https://www.google.com/maps/dir/?api=1&destination=RANCHO+LAS+GOLONDRINAS" target="_blank" class="bg-custom-blue text-white px-8 py-3 rounded-full text-sm sm:text-base md:text-lg font-medium tracking-wider cursor-pointer shadow-md hover:bg-opacity-90 transition-all duration-300 border-white border">
                 Abrir en Maps
@@ -252,7 +283,7 @@
 
     </div>
 
-    <!-- JavaScript for the countdown timer and modal -->
+    <!-- JavaScript for the countdown timer and new fade-in animation -->
     <script>
         // Countdown Timer Logic
         const weddingDate = new Date("Oct 11, 2025 12:30:00").getTime();
@@ -281,6 +312,34 @@
 
         const timer = setInterval(updateCountdown, 1000);
         updateCountdown();
+
+        // New Fade-in on Scroll Animation Logic
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get all the elements we want to animate
+            const sections = document.querySelectorAll('header, section');
+
+            // Set up the IntersectionObserver
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    // Check if the element is currently visible in the viewport
+                    if (entry.isIntersecting) {
+                        // Add the fade-in class to start the animation
+                        entry.target.classList.add('fade-in');
+                        // Stop observing the element once it has faded in
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                // The 'threshold' option determines how much of the element must be visible to trigger the callback
+                // 0.2 means the callback will run when 20% of the element is visible
+                threshold: 0.2
+            });
+
+            // Loop through each section and tell the observer to watch it
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
     </script>
 </body>
 </html>
