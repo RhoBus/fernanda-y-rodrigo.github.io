@@ -9,8 +9,11 @@
     <!-- Google Fonts for typography and icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Existing fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
+    <!-- New font for godparents -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -19,6 +22,10 @@
         }
         .font-script {
             font-family: 'Dancing Script', cursive;
+        }
+        /* New font for the godparents and the ampersand */
+        .font-garamond {
+            font-family: 'Cormorant Garamond', serif;
         }
         .bg-custom-blue {
             background-color: #9ab8c7;
@@ -45,7 +52,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Using a placeholder as the user provided a local file path */
             background-image: url("assets/pattern_flowers.webp");
             background-repeat: repeat;
             background-size: 900px; /* Adjust size to make the pattern visible */
@@ -90,11 +96,12 @@
     <!-- The main content container with responsive width -->
     <div class="container mx-auto px-4 lg:w-[70%] max-w-5xl">
 
-        <!-- Combined Header and Greeting Section -->
-        <header class="relative pt-12 pb-20 text-center text-sm sm:text-base md:text-lg floral-background hidden-fade">
+        <!-- Combined Header and Greeting Section - now full screen height -->
+        <header class="relative flex flex-col items-center justify-center h-screen text-center text-sm sm:text-base md:text-lg floral-background hidden-fade">
             <!-- Content from the original greeting section -->
             <p class="font-light text-sm tracking-widest uppercase mb-4">NUESTRA BODA</p>
-            <p class="font-script text-5xl sm:text-6xl md:text-7xl text-custom-blue my-8">Maria Fernanda<br>&<br>Rodrigo Sander</p>
+            <!-- The & symbol has been wrapped in a span with a new font -->
+            <p class="font-script text-4xl sm:text-5xl md:text-6xl text-custom-blue my-8">Maria Fernanda<br><span class="font-garamond">&</span><br>Rodrigo Sander</p>
             <div class="w-16 h-px bg-gray-400 mx-auto my-8"></div>
             <p class="text-lg sm:text-xl md:text-2xl font-light">11 de octubre, 2025</p>
 
@@ -115,31 +122,32 @@
             </p>
             <!-- The Bride's parents -->
             <p class="font-script text-3xl tracking-wide mt-8">
-                Rafael Pérez Rodríguez (+)<br>
-                Juana Fernández Sejas
+                Rafael Perez Rodriguez (+)<br>
+                Juana Fernandez Sejas
             </p>
             <div class="w-12 h-px bg-white mx-auto my-6"></div>
             <!-- The Groom's parents -->
             <p class="font-script text-3xl tracking-wide mb-8">
-                Iván Bustillos Torres<br>
+                Ivan Bustillos Torres<br>
                 Esther Vargas Arrazola
             </p>
             <!-- New section for the godparents with normal casing -->
             <p class="mt-8 font-semibold leading-relaxed max-w-xs mx-auto text-sm sm:text-base md:text-lg">
                 Y EL APOYO DE NUESTROS PADRINOS:
             </p>
-            <p class="font-script text-3xl tracking-wide mt-8">
+            <!-- The font for the godparents has been changed to Cormorant Garamond -->
+            <p class="font-garamond text-3xl tracking-wide mt-8">
                 Mario Daniel Herrera Romero<br>
                 Naffy Perez Rodriguez
             </p>
             <div class="w-12 h-px bg-white mx-auto my-6"></div>
-            <p class="font-script text-3xl tracking-wide my-4">
+            <p class="font-garamond text-3xl tracking-wide my-4">
                 Roger Vasquez Perez<br>
                 Andrea Terrazas Rodriguez
             </p>
             <div class="w-12 h-px bg-white mx-auto my-6"></div>
-            <p class="font-script text-3xl tracking-wide mb-8">
-                Guery Saldaña<br>
+            <p class="font-garamond text-3xl tracking-wide mb-8">
+                Guery Saldaña Casilla<br>
                 Sara Carmen Vargas Arrazola
             </p>
             <p class="mt-16 font-light leading-relaxed max-w-sm mx-auto text-sm sm:text-base md:text-lg">
