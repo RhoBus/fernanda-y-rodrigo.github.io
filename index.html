@@ -289,6 +289,8 @@
             </a>
         </section>
 
+        <div id="guest-section"></div>
+
     </div>
 
     <!-- JavaScript for the countdown timer and new fade-in animation -->
@@ -349,5 +351,42 @@
             });
         });
     </script>
+    <script>
+      async function loadGuestSection() {
+          // Obtener parámetro "family" de la URL
+          const urlParams = new URLSearchParams(window.location.search);
+          const familyKey = urlParams.get("flia");
+
+          if (!familyKey) return; // No hay parámetro, no se muestra nada
+
+          try {
+              // Cargar el archivo guests.json
+              const response = await fetch("assets/guests.json");
+              const guestsData = await response.json();
+
+              // Verificar si la family existe en el JSON
+              if (guestsData[familyKey]) {
+                  const guestSection = `
+                      <section class="text-center py-20 px-4 floral-background">
+                          <p class="font-script text-3xl sm:text-4xl md:text-5xl mb-8">Invitación Especial</p>
+                          <p class="text-lg sm:text-xl md:text-2xl font-light leading-relaxed max-w-md mx-auto">
+                              ${guestsData[familyKey]}
+                          </p>
+                          <p class="mt-6 font-light text-sm sm:text-base">
+                              NOS ENCANTARÍA SU COMPAÑÍA EN ESTE DÍA TAN ESPECIAL.
+                          </p>
+                      </section>
+                  `;
+
+                  // Insertar justo después de la sección de ubicación
+                  document.getElementById("guest-section").innerHTML = guestSection;
+              }
+          } catch (error) {
+              console.error("Error cargando guests.json:", error);
+          }
+      }
+
+      document.addEventListener("DOMContentLoaded", loadGuestSection);
+  </script>
 </body>
 </html>
